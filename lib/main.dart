@@ -873,6 +873,8 @@ class NativeCanvas extends StatelessWidget {
                 child: Image.network(
                   '${data['imageUrl']}',
                   fit: BoxFit.cover,
+                  loadingBuilder: (context, child, progress) =>
+                      progress == null ? child : const CreativeFallback(),
                   errorBuilder: (_, _, _) => const CreativeFallback(),
                 ),
               ),
@@ -1725,11 +1727,9 @@ class DisclosureBar extends StatelessWidget {
 class CreativeFallback extends StatelessWidget {
   const CreativeFallback({super.key});
   @override
-  Widget build(BuildContext context) => Container(
-    color: _panelRaised,
-    child: const Center(
-      child: Icon(Icons.image_not_supported_outlined, color: _muted, size: 34),
-    ),
+  Widget build(BuildContext context) => Image.asset(
+    'assets/creative/apex-native-hero.png',
+    fit: BoxFit.cover,
   );
 }
 
